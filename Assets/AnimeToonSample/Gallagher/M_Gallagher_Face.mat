@@ -102,7 +102,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AdditionalLightShadowRange: 0.5
+    - _AdditionalLightShadowRange: 0.7
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -120,7 +120,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnableAlphaClip: 0
-    - _EnableDepthRim: 0
+    - _EnableDepthRim: 1
     - _EnableEmissionMap: 0
     - _EnableLightMap: 1
     - _EnableNormalMap: 0

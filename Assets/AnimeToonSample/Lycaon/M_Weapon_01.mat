@@ -146,7 +146,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnableAlphaClip: 0
-    - _EnableDepthRim: 0
+    - _EnableDepthRim: 1
     - _EnableEmissionMap: 0
     - _EnableEyePassThroughHair: 0
     - _EnableFaceShadowMap: 0

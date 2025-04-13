@@ -126,7 +126,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AdditionalLightShadowRange: 0.5
+    - _AdditionalLightShadowRange: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -191,7 +191,7 @@ Material:
     - _ZTest: 2
     - _ZWrite: 1
     m_Colors:
-    - _AdditionalLightClipRange: {r: 0, g: 1, b: 0, a: 0}
+    - _AdditionalLightClipRange: {r: 0.4552058, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DepthHairColor: {r: 1, g: 0.9, b: 0.9, a: 1}

@@ -201,6 +201,6 @@ Material:
     - _OffsetDepthRim: {r: 0.2, g: 0.2, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.8}
     - _OutlineImpactedByVertexColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 4, g: 2.3770518, b: 1.8301888, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

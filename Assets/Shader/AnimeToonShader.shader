@@ -1,6 +1,3 @@
-// Copyright (c) 2024 Teeinn
-// This file is licensed under the MIT License.
-
 Shader "TNLab/AnimeToonShader"
 {
     Properties
@@ -17,10 +14,10 @@ Shader "TNLab/AnimeToonShader"
         _OutlineWidth ("Outline Width" , Range(0,10)) = 1
         [Enum(Off, 0, On, 1)] _EnableReceiveLightColor ("Receive Light Color", Float) = 0
         [Enum(None, 0, R, 1, G, 2, B, 3, A, 4)]_OutlineImpactedByVertexColor ("Impacted By Vertex Color", Float) = 0
-        
+
         // LightMap (Normal)
         [Enum(Off, 0, On, 1)] _EnableLightMap ("Enable LightMap", Float) = 0
-        [Enum(Normal, 0, FaceSDF, 1)] _LightMapMode ("LightMap Mode", Float) = 0 
+        [Enum(Normal, 0, FaceSDF, 1)] _LightMapMode ("LightMap Mode", Float) = 0
         _LightMap ("LightMap (R: Shadow/ G:None /B:Metal(Matcap) /A: Gradient Color Index)", 2D) = "white"{}
         _LightMap_GradientColor ("LightMap - Gradient Color" , 2D) = "white"{}
         _MatCapTex ("MatCap Tex" , 2D) = "white"{}
@@ -158,7 +155,7 @@ Shader "TNLab/AnimeToonShader"
             if (unity_OrthoParams.w == 0)
             {
                 float CameraDist = abs(positionVS).z;
-                CameraDist = log(CameraDist+1);
+                CameraDist = log(CameraDist + 1);
                 return clamp(GetCameraFOV() * factor, 0.001f, 1) * CameraDist;
             }
             else
@@ -196,7 +193,7 @@ Shader "TNLab/AnimeToonShader"
             float3 outlineVector = outlineNormal.x * tangentWS.xyz + outlineNormal.y * bitangentWS + outlineNormal.z * normalWS;
             return outlineVector;
         }
-        
+
         CBUFFER_START(UnityPerMaterial)
         // Shared
         SamplerState linear_repeat_sampler, linear_clamp_sampler, point_repeat_sampler, point_clamp_sampler;
@@ -217,7 +214,7 @@ Shader "TNLab/AnimeToonShader"
         Texture2D _EmissionMap;
         half4 _EmissionColor, _EmissionMap_ST;
         uint _EnableEmissionMap;
-        
+
         // Eye-PassThrough Hair
         Texture2D _AnimeToon_EyeThroughHair_Color;
         half _WriteEyeColor_Intensity, _WriteEyeColor_FadeOutRange;
@@ -244,7 +241,7 @@ Shader "TNLab/AnimeToonShader"
         // Depth-Hair
         Texture2D _AnimeToon_HairDepthTexture;
         half4 _DepthHairColor;
-        
+
         // NormalMap
         Texture2D _NormalMap;
         half4 _NormalMap_ST;
@@ -273,23 +270,23 @@ Shader "TNLab/AnimeToonShader"
             #pragma fragment frag
 
             VertexOutput vert(VertexInput v)
-            { 
+            {
                 VertexOutput o = (VertexOutput)0;
                 VertexPositionInputs vertexPositionInput = GetVertexPositionInputs(v.vertex.xyz);
                 float3 outlineNormal = 1;
                 switch (_OutlineNormalSource)
                 {
-                    default:
-                        break;
-                    case 0: // Mesh normal
-                        outlineNormal = v.normal;
-                        break;
-                    case 1: // Custom Normal in UV4
-                        outlineNormal = CalcOutlineVectorOS(v.smoothNormal.xyz, v.normal, v.tangent);
-                        break;
+                default:
+                    break;
+                case 0: // Mesh normal
+                    outlineNormal = v.normal;
+                    break;
+                case 1: // Custom Normal in UV4
+                    outlineNormal = CalcOutlineVectorOS(v.smoothNormal.xyz, v.normal, v.tangent);
+                    break;
                 }
                 float3 positionVS = vertexPositionInput.positionVS;
-                half outlineMask = _OutlineImpactedByVertexColor == 0 ? 1 : v.vertexColor[_OutlineImpactedByVertexColor-1];
+                half outlineMask = _OutlineImpactedByVertexColor == 0 ? 1 : v.vertexColor[_OutlineImpactedByVertexColor - 1];
                 float3 positionOS = v.vertex.xyz + outlineNormal * _OutlineWidth * outlineMask * FixOutline(positionVS);
                 o.positionCS = TransformObjectToHClip(positionOS);
                 o.normal = TransformObjectToWorldNormal(v.normal);
@@ -306,7 +303,7 @@ Shader "TNLab/AnimeToonShader"
 
                 // Final Output
                 // For more good controllable and art-style , blend outline color with 'Lerp'. 
-                half3 FinalColor = lerp(SampleMainTex.rgb * _Color.rgb , _OutlineColor.rgb, _OutlineColor.a);
+                half3 FinalColor = lerp(SampleMainTex.rgb * _Color.rgb, _OutlineColor.rgb, _OutlineColor.a);
                 half FinalAlpha = SampleMainTex.a * _Color.a;
 
                 // Light
@@ -369,21 +366,21 @@ Shader "TNLab/AnimeToonShader"
                 // Debug
                 switch (_ShowVertexColor)
                 {
-                    default:
-                    case 0: // None
-                            break;
-                    case 1: // R
-                            return half4(o.vertexColor.rrr, 1);
-                    case 2: // G
-                            return half4(o.vertexColor.ggg, 1);
-                    case 3: // B
-                            return half4(o.vertexColor.bbb, 1);
-                    case 4: // A
-                            return half4(o.vertexColor.aaa, 1);
-                    case 5: // RGB
-                            return half4(o.vertexColor.rgb, 1);
+                default:
+                case 0: // None
+                    break;
+                case 1: // R
+                    return half4(o.vertexColor.rrr, 1);
+                case 2: // G
+                    return half4(o.vertexColor.ggg, 1);
+                case 3: // B
+                    return half4(o.vertexColor.bbb, 1);
+                case 4: // A
+                    return half4(o.vertexColor.aaa, 1);
+                case 5: // RGB
+                    return half4(o.vertexColor.rgb, 1);
                 }
-                
+
                 // Depth Data
                 half2 ScreenUV = o.positionCS.xy / _ScreenParams.xy;
                 float SampleDepth = SAMPLE_TEXTURE2D(_CameraDepthTexture, linear_clamp_sampler, ScreenUV).r;
@@ -472,31 +469,31 @@ Shader "TNLab/AnimeToonShader"
                 if (_EnableLightMap)
                 {
                     half4 SampleLightMap = 0;
-                    switch(_LightMapMode)
+                    switch (_LightMapMode)
                     {
-                        default:
-                        case 0: // Normal Light Map
-                                SampleLightMap = SAMPLE_TEXTURE2D(_LightMap, linear_repeat_sampler, o.uv);
-                            break;
-                        case 1: // Face Shadow SDF
-                                SampleLightMap = SAMPLE_TEXTURE2D(_FaceShadowMap, linear_repeat_sampler, o.uv);
-                                half LightDotForward = dot(MainLight.direction, normalize(unity_ObjectToWorld._m02_m12_m22));
-                                half LightDotUp = dot(MainLight.direction, normalize(unity_ObjectToWorld._m01_m11_m21));
-                                half2 SampleShadowMapUV = o.uv;
-                                if (LightDotForward < 0)
-                                {
-                                    SampleShadowMapUV = half2(-o.uv.x, o.uv.y); 
-                                    LightDotForward = -LightDotForward; 
-                                }
-                                half4 SampleFaceShadowMap = SAMPLE_TEXTURE2D(_FaceShadowMap, linear_repeat_sampler, SampleShadowMapUV);
-                                half FixShadowMapFactor = abs(MainLight.direction.z);
-                                // Due to light angle will decrease the 'LightDotForward' intensity. so make shadowMap be decreased the same.
-                                SampleFaceShadowMap.r *= FixShadowMapFactor;
-                                LightDotForward *= FixShadowMapFactor;
-                                SampleFaceShadowMap.r = InverseLerp(LightDotForward, LightDotForward + _FaceShadowRange, SampleFaceShadowMap.r);
-                                SampleFaceShadowMap.r *= LightDotUp > 0 ? 1 : 0;
-                                SampleLightMap.r = SampleFaceShadowMap.r;
-                            break;
+                    default:
+                    case 0: // Normal Light Map
+                        SampleLightMap = SAMPLE_TEXTURE2D(_LightMap, linear_repeat_sampler, o.uv);
+                        break;
+                    case 1: // Face Shadow SDF
+                        SampleLightMap = SAMPLE_TEXTURE2D(_FaceShadowMap, linear_repeat_sampler, o.uv);
+                        half LightDotForward = dot(MainLight.direction, normalize(unity_ObjectToWorld._m02_m12_m22));
+                        half LightDotUp = dot(MainLight.direction, normalize(unity_ObjectToWorld._m01_m11_m21));
+                        half2 SampleShadowMapUV = o.uv;
+                        if (LightDotForward < 0)
+                        {
+                            SampleShadowMapUV = half2(-o.uv.x, o.uv.y);
+                            LightDotForward = -LightDotForward;
+                        }
+                        half4 SampleFaceShadowMap = SAMPLE_TEXTURE2D(_FaceShadowMap, linear_repeat_sampler, SampleShadowMapUV);
+                        half FixShadowMapFactor = abs(MainLight.direction.z);
+                        // Due to light angle will decrease the 'LightDotForward' intensity. so make shadowMap be decreased the same.
+                        SampleFaceShadowMap.r *= FixShadowMapFactor;
+                        LightDotForward *= FixShadowMapFactor;
+                        SampleFaceShadowMap.r = InverseLerp(LightDotForward, LightDotForward + _FaceShadowRange, SampleFaceShadowMap.r);
+                        SampleFaceShadowMap.r *= LightDotUp > 0 ? 1 : 0;
+                        SampleLightMap.r = SampleFaceShadowMap.r;
+                        break;
                     }
                     // R: ShadowMap
                     half LightMap_Shadow = SampleLightMap.r;
@@ -536,16 +533,16 @@ Shader "TNLab/AnimeToonShader"
                     Rim *= MainLight.shadowAttenuation;
                     switch (_DepthRimMode)
                     {
-                        default:
-                        case 0: // Additive
-                            FinalColor += Rim * SampleMainTex.rgb * _RimColor.rgb * MainLight.color;
-                            break;
-                        case 1: // Multiply
-                            FinalColor = lerp(FinalColor, FinalColor * _RimColor.rgb * MainLight.color , _RimColor.a * Rim);
-                            break;
-                        case 2: // Replace
-                            FinalColor = lerp(FinalColor, _RimColor.rgb * MainLight.color , _RimColor.a * Rim);
-                            break;
+                    default:
+                    case 0: // Additive
+                        FinalColor += Rim * SampleMainTex.rgb * _RimColor.rgb * MainLight.color;
+                        break;
+                    case 1: // Multiply
+                        FinalColor = lerp(FinalColor, FinalColor * _RimColor.rgb * MainLight.color, _RimColor.a * Rim);
+                        break;
+                    case 2: // Replace
+                        FinalColor = lerp(FinalColor, _RimColor.rgb * MainLight.color, _RimColor.a * Rim);
+                        break;
                     }
                 }
 
@@ -972,112 +969,6 @@ Shader "TNLab/AnimeToonShader"
             }
             ENDHLSL
         }
-//        Pass
-//        {
-//            Tags
-//            {
-//                "LightMode" = "CutScene_CharacterOutline"
-//            }
-//
-//            Blend [_SourceBlend] [_DestBlend]
-//            ZWrite On
-//            ZTest LEqual
-//            Cull Front
-//
-//            HLSLPROGRAM
-//            #pragma vertex vert
-//            #pragma fragment frag
-//
-//            VertexOutput vert(VertexInput v)
-//            { 
-//                VertexOutput o = (VertexOutput)0;
-//                VertexPositionInputs vertexPositionInput = GetVertexPositionInputs(v.vertex.xyz); 
-//                float3 outlineNormal = 1;
-//                switch (_OutlineNormalSource)
-//                {
-//                    default:
-//                        outlineNormal = 1;
-//                        break;
-//                    case 0: // Mesh normal
-//                        outlineNormal = v.normal;
-//                        break;
-//                    case 1: // Custom Normal in UV4
-//                        outlineNormal = CalcOutlineVectorOS(v.smoothNormal.xyz, v.normal, v.tangent);
-//                        break;
-//                }
-//                float3 positionVS = vertexPositionInput.positionVS;
-//                float3 positionOS = v.vertex.xyz + outlineNormal * _OutlineWidth * v.vertexColor.a * FixOutline(positionVS);
-//                //float3 positionWS = vertexPositionInput.positionWS + outlineNormal * _OutlineWidth * v.vertexColor.a * FixOutline(positionVS);
-//                o.positionCS = TransformObjectToHClip(positionOS);
-//                //o.positionCS = TransformWorldToHClip(positionWS);
-//                o.normal = TransformObjectToWorldNormal(v.normal);
-//                o.uv = v.uv;
-//                o.vertexColor = v.vertexColor;
-//
-//                return o;
-//            }
-//
-//            half4 frag(VertexOutput o) : SV_Target
-//            {
-//                return 1;
-//            }
-//            ENDHLSL
-//        }
-//        Pass
-//        {
-//            Tags
-//            {
-//                "LightMode" = "CutScene_CharacterColor"
-//            }
-//
-//            Blend One Zero
-//            ZWrite Off
-//            ZTest LEqual
-//            Cull Off
-//
-//            HLSLPROGRAM
-//            #pragma vertex vert
-//            #pragma fragment frag
-//            
-//            #pragma multi_compile_instancing
-//            #pragma instancing_options renderinglayer
-//
-//            VertexOutput vert(VertexInput v)
-//            {
-//                VertexOutput o = (VertexOutput)0;
-//                o.positionCS = TransformObjectToHClip(v.vertex.xyz);
-//                return o;
-//            }
-//
-//            half4 frag(VertexOutput o) : SV_Target
-//            {
-//                return half4(0,0,0,1);
-//            }
-//            ENDHLSL
-//        }
     }
-    CustomEditor "Shader.Editor.AnimeToonShaderEditor"
+    CustomEditor "AnimeToonShaderEditor"
 }
-
-
-//  MIT License
-//  
-//  Copyright (c) 2024 Teeinn
-//  
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//  
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
-//  
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
