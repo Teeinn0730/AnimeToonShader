@@ -18,7 +18,7 @@ This source code doesn't get any optimization, and make sure you have test targe
 ![image](https://github.com/user-attachments/assets/dced23eb-2cbb-492a-b157-edb77b7ed75d)  
 BaseMap texture and color.
 
-### Outline
+### Outline (Optional)
 ![image](https://github.com/user-attachments/assets/ac38e19b-9773-417a-a2fd-7e24fe135116)  
 Outline Normal Source : 
   - Mesh Normal : Directly use the normal of the mesh to expand the outline.
@@ -35,7 +35,7 @@ Impacted By Vertex Color : Enable to multiply with single channel color of verte
 ![image](https://github.com/user-attachments/assets/4f7fe742-231a-440c-b737-109b3baeb7a6) 
 
 
-### LightMap
+### LightMap (Optional)
 ![image](https://github.com/user-attachments/assets/bb90c0bb-a173-4300-8e72-3dd6eec0a5a2)  
 LightMap Mode :
   - Normal : Deal with the cloth, body, hair and so on. 
@@ -50,3 +50,21 @@ LightMap : 4 channel deal with four different ways.
 Gradient Color : Map the light and shadow color with gradient map.  
 MatCap Tex : Deal with the reflection quality.  
 Metal : Control the MatCap Tex Intensity.
+
+### EmissionMap (Optional)
+![image](https://github.com/user-attachments/assets/61fc6ff2-5362-4317-afb8-662d88d1a37c)  
+Emission Map : Sample this texture color and add on.  
+Emission Color : Multiply with the Emission Tex.  
+
+### NormalMap (Optional)
+![image](https://github.com/user-attachments/assets/59d120a8-896a-473f-b851-f195b5ff0cf0)  
+Normal Map and Intensity.  
+
+### Light
+![image](https://github.com/user-attachments/assets/b1dbae18-3f7e-43ea-adf6-e77ae9f085d8)
+MainLight Shadow Range : Control the ratio of light and shadow.  
+AdditionalLight Shadow Range : Control the ratio of light and shadow.  
+AdditionalLight Clip Range : Control the smoothness of light and shadow.  
+
+
+
