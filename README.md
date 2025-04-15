@@ -9,4 +9,10 @@ https://github.com/user-attachments/assets/7e6b42d4-b998-41bd-8984-7a419df5921c
 3. First time open the project might takes 5~10 minutes to compress skybox textures.
 4. Open the 'AnimeToonSample.unity' scene to view the sample.
 
+# Does it allow for comercial use?
+Yes, only shader can! The models are belong to Mihoyo company.
+This source code doesn't get any optimization, and make sure you have test target platform first when you want to use in your project.
+
+# Function Explain
+## MainTex
 
