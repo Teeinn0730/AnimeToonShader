@@ -4,13 +4,13 @@ This sample is recreate and mimic the shader of ' Star Rail ' and ' ZenLess Zone
 https://github.com/user-attachments/assets/7e6b42d4-b998-41bd-8984-7a419df5921c
 
 # How to use it?
-1. Download this github code.
-2. Unzip the file and create new unity project with 2022.3.38f1 or newer. (This project is not support Unity6 yet.)
-3. First time open the project might takes 5~10 minutes to compress skybox textures.
-4. Open the 'AnimeToonSample.unity' scene to view the sample.
+1. Download this github code.  
+2. Unzip the file and create new unity project with 2022.3.38f1 or newer. (This project is not support Unity6 yet.)  
+3. First time open the project might takes 5~10 minutes to compress skybox textures.  
+4. Open the 'AnimeToonSample.unity' scene to view the sample.  
 
 # Does it allow for comercial use?
-Yes, only shader can! The models are belong to Mihoyo company.
+Yes, only shader can! The models are belong to Mihoyo company.  
 This source code doesn't get any optimization, and make sure you have test target platform first when you want to use in your project.
 
 # Function Explain
@@ -66,5 +66,27 @@ MainLight Shadow Range : Control the ratio of light and shadow.
 AdditionalLight Shadow Range : Control the ratio of light and shadow.  
 AdditionalLight Clip Range : Control the smoothness of light and shadow.  
 
+### Depth-Rim
+![image](https://github.com/user-attachments/assets/24a9494d-4c76-4d63-ac20-1d1d903758dc)
+Depth Rim Mode : There are three mode can be choosed.
+  - Additive  
+  - Multiply  
+  - Replace
+
+Offset Depth Rim : Make sure the offset value be positive. (MainLight's direction would impact the rim's offset)  
+Rim Color : Multiply the rim color. (Mainlight's color would also multiply with it.)   
+
+### Blend Setting (https://docs.unity3d.com/2020.1/Documentation/Manual/SL-CullAndDepth.html)
+![image](https://github.com/user-attachments/assets/ed7881ff-8c40-437e-bcaa-9d54426ebf70)  
+Render Mode : 
+  - Opaque : This mode the transparent is not work.
+  - Transparent : This mode the transparent is work. (Use mainColor's alpha to control)
+  - Custom : Use SrcBlend and DestBlend to combine what you want.
+
+SrcBlend : Source blend setting.
+DestBlend : Destnation blend setting.
+CullMask : Controls which sides of polygons should be culled.
+ZWrite : Controls whether pixels from this object are written to the depth buffer (default is On). If you’re drawng solid objects, leave this on. If you’re drawing semitransparent effects, switch to ZWrite Off.
+ZTest : How should depth testing be performed. Default is LEqual 
 
 
