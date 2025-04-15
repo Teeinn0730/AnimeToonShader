@@ -248,7 +248,7 @@ public class AnimeToonShaderEditor : ShaderGUI
                                     "\r\n◆ If this material is for 'Hair', Turn the 'Read Eye Color' on." +
                                     "\r\n◆ Use G channel of faceMap to mask the extra eye rendering." +
                                     "\r\n◆ Orthographic mode is not compatible." +
-                                    "\r\n◆ RootBone needs to be compatible with unity leftHand coordinate system.", MessageType.Info);
+                                    "\r\n◆ RootBone needs to be compatible with (-z, -x, y) direction.", MessageType.Info);
             GUILayout.BeginHorizontal();
             {
                 MatGUI.DrawToggleButtonGUI(shaderProperty._ReadEyeColor, shaderProperty._ReadEyeColor.displayName);
@@ -277,7 +277,7 @@ public class AnimeToonShaderEditor : ShaderGUI
                                     "\r\n◆ If this material is for 'Face', Turn the 'Read Hair Depth' on." +
                                     "\r\n◆ If this material is for 'Hair', Turn the 'Write Hair Depth' on." +
                                     "\r\n◆ Orthographic mode is not compatible." +
-                                    "\r\n◆ RootBone needs to be compatible with unity leftHand coordinate system.", MessageType.Info);
+                                    "\r\n◆ RootBone needs to be compatible with (-z, -x, y) direction.", MessageType.Info);
             GUILayout.BeginHorizontal();
             {
                 MatGUI.DrawToggleButtonGUI(shaderProperty._ReadHairDepth, shaderProperty._ReadHairDepth.displayName);
