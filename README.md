@@ -14,5 +14,16 @@ Yes, only shader can! The models are belong to Mihoyo company.
 This source code doesn't get any optimization, and make sure you have test target platform first when you want to use in your project.
 
 # Function Explain
-## MainTex
+### MainTex
+![image](https://github.com/user-attachments/assets/dced23eb-2cbb-492a-b157-edb77b7ed75d) \
+BaseMap texture and color.
 
+### Outline
+![image](https://github.com/user-attachments/assets/ac38e19b-9773-417a-a2fd-7e24fe135116) \
+Outline Normal Source : 
+  - Mesh Normal: Directly use the normal of the mesh to expand the outline.
+  - CustomNormal(UV4): Take the pre-smoothNormal data from the mesh of uv4 to expand the outline. 
+Outline Color (Lerp Mode) : Alpha is a weight to control the baseMap color and outline Color.
+Outline Width : Control the thickness of outline.
+Receieve Light Color : Enable to multiply with mainLight color.
+Impacted By Vertex Color : Enable to multiply with single channel color of vertex.
