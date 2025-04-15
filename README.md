@@ -22,8 +22,18 @@ BaseMap texture and color.
 ![image](https://github.com/user-attachments/assets/ac38e19b-9773-417a-a2fd-7e24fe135116) \
 Outline Normal Source : 
   - Mesh Normal: Directly use the normal of the mesh to expand the outline.
-  - CustomNormal(UV4): Take the pre-smoothNormal data from the mesh of uv4 to expand the outline. 
-Outline Color (Lerp Mode) : Alpha is a weight to control the baseMap color and outline Color.
-Outline Width : Control the thickness of outline.
-Receieve Light Color : Enable to multiply with mainLight color.
-Impacted By Vertex Color : Enable to multiply with single channel color of vertex.
+  - CustomNormal(UV4): Take the pre-smoothNormal data from the mesh of uv4 to expand the outline. \
+Outline Color (Lerp Mode) : Alpha is a weight to control the baseMap color and outline Color. \
+Outline Width : Control the thickness of outline. \
+Receieve Light Color : Enable to multiply with mainLight color. \
+Impacted By Vertex Color : Enable to multiply with single channel color of vertex. \
+> ![TIP]
+> Where to use the smooth normal function to put it in UV4?
+> There is a extension script called 'AnimeToonFBXImporter.cs' to extend the function in your FBX model inspector.
+> Turn on the 'Store Smooth Normal in UV4' and 'Tangents' to get a perfect smooth normal data.
+![image](https://github.com/user-attachments/assets/4f7fe742-231a-440c-b737-109b3baeb7a6) \
+
+
+### LightMap
+![image](https://github.com/user-attachments/assets/bb90c0bb-a173-4300-8e72-3dd6eec0a5a2) \
+
