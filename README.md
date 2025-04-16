@@ -115,7 +115,7 @@ ZTest : How should depth testing be performed. Default is LEqual
 Show Vertex Color (Debug) : Show the vertex color on.
 ```
 
-### Additional Setting
+### Additional Setting (Optional)  
 ![image](https://github.com/user-attachments/assets/95258ec3-5aff-4909-9c0a-e37e408725e1)    
 > [!WARNING]  
 > Make sure the render features 'Anime Toon Features' is enable and turn on the 'Eye Through Hair' and 'Depth Hair Caster' first.  
