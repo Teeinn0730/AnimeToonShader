@@ -31,7 +31,7 @@ Receieve Light Color : Enable to multiply with mainLight color.
 Impacted By Vertex Color : Enable to multiply with single channel color of vertex. 
 ```
 > [!TIP]
-> ### Why i can't see the outline?  
+> ### Why can't i see the outline?  
 > Turn on the 'Enable Character Outline' from the render features.  
 > ![image](https://github.com/user-attachments/assets/4e1ba8d8-dac4-4a5e-ad3a-44a6b59f923c)  
 > ### Where to use the smooth normal function and put it in UV4?  
