@@ -74,9 +74,12 @@ MonoBehaviour:
   m_Name: AnimeToonFeatures
   m_EditorClassIdentifier: 
   m_Active: 1
-  enableCharacterOutline: 1
-  m_CharacterOutline_RenderPassEvent: 300
-  enableEyeThroughHair: 1
-  m_EyeThroughHair_RenderPassEvent: 250
-  enableDepthHairCaster: 1
-  m_DepthHairCaster_RenderPassEvent: 250
+  m_CharacterOutlineSetting:
+    m_Enable: 1
+    m_RenderPassEvent: 300
+  m_EyeThroughHairSetting:
+    m_Enable: 1
+    m_RenderPassEvent: 250
+  m_DepthHairCasterSetting:
+    m_Enable: 1
+    m_RenderPassEvent: 250
